@@ -5,8 +5,20 @@ import android.os.Bundle;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+/**
+ * Soundtrack: https://www.youtube.com/watch?v=U5IailIzqdc
+ *
+ * Procore Github Challenge app
+ *
+ * Given a repo, show the open pull requests and the aggregated diff in side by side UI
+ *
+ * This is the Main activity of the github challenge android application.
+ *
+ */
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -24,8 +36,10 @@ public class MainActivity extends AppCompatActivity {
         GIthubGetRequest githubGetRequest = new GIthubGetRequest();
         JSONObject result = null;
 
+        List<PullRequest> pullRequests = new ArrayList<>();
+
         try {
-            result = githubGetRequest.execute(githubRepoURL).get();
+            pullRequests = githubGetRequest.execute(githubRepoURL).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {

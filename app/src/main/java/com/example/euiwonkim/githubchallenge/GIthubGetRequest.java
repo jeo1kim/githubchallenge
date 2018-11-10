@@ -11,19 +11,25 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by euiwonkim on 11/10/18.
+ * Asynctaks to handle Github api GET request for public repos
+ *
+ * @Param: String: public repo url
+ * @Result: JSON
  */
 
-public class GIthubGetRequest extends AsyncTask<String, Void, JSONObject> {
+public class GIthubGetRequest extends AsyncTask<String, Void, List<PullRequest>> {
 
     public static final String REQUEST_METHOD = "GET";
     public static final int READ_TIMEOUT = 15000;
     public static final int CONNECTION_TIMEOUT = 15000;
 
     @Override
-    protected JSONObject doInBackground(String... strings) {
+    protected List<PullRequest> doInBackground(String... strings) {
 
         String repoUrlString = strings[0];
         JSONObject resultJSON = null;
@@ -32,6 +38,8 @@ public class GIthubGetRequest extends AsyncTask<String, Void, JSONObject> {
         InputStream inStream = null;
         InputStreamReader inReader = null;
         String inputLine;
+        JSONArray jsonArray = null;
+        List<PullRequest> pullrequestsList  = new ArrayList<>();
 
         try {
             // create url object from our repo url
@@ -65,10 +73,19 @@ public class GIthubGetRequest extends AsyncTask<String, Void, JSONObject> {
             bReader.close();
             inReader.close();
             System.out.println("RAW OUTPUT" + sBuilder.toString());
-            JSONArray jsonArray = (JSONArray) new JSONTokener(sBuilder.toString()).nextValue();
+            jsonArray = (JSONArray) new JSONTokener(sBuilder.toString()).nextValue();
             //resultJSON = new JSONObject(sBuilder.toString());
 
-            
+            // pull requests list
+            pullrequestsList = new ArrayList<>();
+
+            // split the JSON Array to list of pull request objects
+            for(int i = 0; i < jsonArray.length(); i++){
+
+                JSONObject jsonPR = jsonArray.getJSONObject(i);
+                pullrequestsList.add(new PullRequest(jsonPR));
+
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -80,12 +97,15 @@ public class GIthubGetRequest extends AsyncTask<String, Void, JSONObject> {
             }
         }
 
-        return resultJSON;
+
+
+        return pullrequestsList;
     }
 
 
     @Override
-    protected void onPostExecute(JSONObject jsonObject) {
-        super.onPostExecute(jsonObject);
+    protected void onPostExecute(List<PullRequest> pullrequestsList) {
+        super.onPostExecute(pullrequestsList);
+
     }
 }
