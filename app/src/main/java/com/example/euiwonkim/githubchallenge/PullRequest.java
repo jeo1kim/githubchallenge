@@ -15,16 +15,16 @@ public class PullRequest {
 
 
 
-    String id;
-    String state;
-    String diffUrl;
-    String title;
+    private String id;
+    private String state;
+    private String diffUrl;
+    private String title;
 
-    String diff;
+    private String diff;
 
     protected PullRequest(JSONObject pullRequest) throws JSONException {
 
-        System.out.println(pullRequest.toString());
+        //System.out.println(pullRequest.toString());
         this.id = pullRequest.getString("id");
         this.state = pullRequest.getString("state");
         this.diffUrl = pullRequest.getString("diff_url");
@@ -39,7 +39,7 @@ public class PullRequest {
         String diff = null;
         try {
             diff = diffGetRequest.execute(this.diffUrl).get();
-            System.out.println("diff response " + diff);
+            //System.out.println("diff response " + diff);
             this.diff = diff;
         } catch (InterruptedException e) {
             e.printStackTrace();
