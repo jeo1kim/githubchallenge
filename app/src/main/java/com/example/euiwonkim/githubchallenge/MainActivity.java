@@ -46,10 +46,11 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent diffViewIntent = new Intent(MainActivity.this, DiffViewActivity.class);
 
-                pullRequests.get(11).fetchDiff();
 
+                pullRequests.get(11).fetchDiff();
                 System.out.println("passing diff"+ pullRequests.get(11).getDiff());
                 diffViewIntent.putExtra("diff", pullRequests.get(11).getDiff());
+
                 MainActivity.this.startActivity(diffViewIntent);
 
             }
@@ -60,8 +61,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
-
 
 
     }
