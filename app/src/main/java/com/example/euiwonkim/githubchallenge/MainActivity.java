@@ -2,6 +2,7 @@ package com.example.euiwonkim.githubchallenge;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import org.json.JSONObject;
 
@@ -31,22 +32,38 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-
         String githubRepoURL = "https://api.github.com/repos/torvalds/linux/pulls";
+        List<PullRequest> pullRequests = getGithubRequest(githubRepoURL);
+
+        fetchDiff(pullRequests);
+
+
+    }
+
+    protected List<PullRequest> getGithubRequest(String githubUrl) {
+
         GIthubGetRequest githubGetRequest = new GIthubGetRequest();
         JSONObject result = null;
 
         List<PullRequest> pullRequests = new ArrayList<>();
 
         try {
-            pullRequests = githubGetRequest.execute(githubRepoURL).get();
+            pullRequests = githubGetRequest.execute(githubUrl).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
 
-        System.out.println("github api get request" + result);
+        return pullRequests;
+
+    }
+
+    protected void fetchDiff(List<PullRequest> pullRequests){
+
+        for(PullRequest pr : pullRequests){
+            pr.fetchDiff();
+        }
     }
 
 }
