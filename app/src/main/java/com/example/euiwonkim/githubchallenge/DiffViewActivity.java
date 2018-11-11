@@ -15,7 +15,8 @@ public class DiffViewActivity extends Activity {
 
     private String diffString;
 
-    TextView diffTextView;
+    TextView diffLeftTextView;
+    TextView diffRightTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +24,8 @@ public class DiffViewActivity extends Activity {
         setContentView(R.layout.activity_diff);
 
 
-        diffTextView = (TextView) findViewById(R.id.diffTextView);
+        diffLeftTextView = findViewById(R.id.diffLeftTextView);
+        diffRightTextView = findViewById(R.id.diffRightTextView);
 
         Intent intent = getIntent();
         diffString = intent.getStringExtra("diff");
@@ -35,7 +37,8 @@ public class DiffViewActivity extends Activity {
         super.onStart();
 
 
-        diffTextView.setText(diffString);
+        diffLeftTextView.setText(diffString);
+        diffRightTextView.setText(diffString);
 
 
     }

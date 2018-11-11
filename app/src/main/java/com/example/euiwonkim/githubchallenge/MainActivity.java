@@ -39,13 +39,17 @@ public class MainActivity extends AppCompatActivity {
         pullRequests = getGithubRequest(githubRepoURL);
 
 
+
         Button button = findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent diffViewIntent = new Intent(MainActivity.this, DiffViewActivity.class);
-                System.out.println("passing diff"+ pullRequests.get(1).getDiff());
-                diffViewIntent.putExtra("diff", pullRequests.get(1).getDiff());
+
+                pullRequests.get(11).fetchDiff();
+
+                System.out.println("passing diff"+ pullRequests.get(11).getDiff());
+                diffViewIntent.putExtra("diff", pullRequests.get(11).getDiff());
                 MainActivity.this.startActivity(diffViewIntent);
 
             }
@@ -60,17 +64,25 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        fetchDiff(pullRequests);
-        //TextView test = findViewById(R.id.hello);
-        //test.setText(pullRequests.get(1).getDiff());
-
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //fetchDiff(pullRequests);
+    }
+
+    /**
+     * Uses Asynctaks in GithubGetRequest class
+     * @param public github repo url
+     * @return List of pull request on the github repo
+     */
     protected List<PullRequest> getGithubRequest(String githubUrl) {
 
+        // Asynctask
         GIthubGetRequest githubGetRequest = new GIthubGetRequest();
         JSONObject result = null;
-
+        // pull requests list
         List<PullRequest> pullRequests = new ArrayList<>();
 
         try {

@@ -12,6 +12,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,14 +57,16 @@ public class DiffGetRequest extends AsyncTask<String, Void, String> {
             inStream = connection.getInputStream();
 
             // get the input stream to string
-            inReader = new InputStreamReader(inStream);
+            inReader = new InputStreamReader(inStream, StandardCharsets.UTF_8);
 
             BufferedReader bReader = new BufferedReader(inReader);
+
             StringBuilder sBuilder = new StringBuilder();
 
             // read until null
-            while((inputLine = bReader.readLine()) != null) {
-                sBuilder.append(inputLine);
+            char[] buff = new char[500];
+            for (int charsRead; (charsRead = inReader.read(buff)) != -1; ) {
+                sBuilder.append(buff, 0, charsRead);
             }
 
             // close input and buffered readers

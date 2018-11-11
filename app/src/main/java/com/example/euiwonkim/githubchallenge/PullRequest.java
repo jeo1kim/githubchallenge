@@ -22,6 +22,7 @@ public class PullRequest {
 
     private String diff;
 
+    // constructor
     protected PullRequest(JSONObject pullRequest) throws JSONException {
 
         //System.out.println(pullRequest.toString());
@@ -32,9 +33,12 @@ public class PullRequest {
 
     }
 
+    /**
+     * fetch the diff file from diff url
+     *
+     * uses asyntask from diffGetRequest class.
+     */
     protected void fetchDiff(){
-
-
         DiffGetRequest diffGetRequest = new DiffGetRequest();
         String diff = null;
         try {
@@ -48,6 +52,11 @@ public class PullRequest {
         }
 
     }
+
+    /**
+     * getters and setters
+     *
+     */
 
     protected void setDiff(String diff){
         this.diff = diff;
