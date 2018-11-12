@@ -25,7 +25,11 @@ public class PullRequest {
     private String diff;
 
 
-    // constructor
+    /**
+     * Constructor
+     * @param pullRequest: JSON result from api call
+     * @throws JSONException
+     */
     protected PullRequest(JSONObject pullRequest) throws JSONException {
 
         //System.out.println(pullRequest.toString());
@@ -64,9 +68,7 @@ public class PullRequest {
 
     /**
      * getters and setters
-     *
      */
-
     protected void setDiff(String diff){
         this.diff = diff;
     }

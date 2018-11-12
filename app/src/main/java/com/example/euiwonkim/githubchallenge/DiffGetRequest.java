@@ -58,9 +58,7 @@ public class DiffGetRequest extends AsyncTask<String, Void, String> {
 
             // get the input stream to string
             inReader = new InputStreamReader(inStream, StandardCharsets.UTF_8);
-
             BufferedReader bReader = new BufferedReader(inReader);
-
             StringBuilder sBuilder = new StringBuilder();
 
             // read bytes to read newline and tabs
@@ -73,7 +71,7 @@ public class DiffGetRequest extends AsyncTask<String, Void, String> {
             bReader.close();
             inReader.close();
 
-
+            // return as string
             diffResult = sBuilder.toString();
 
         } catch (FileNotFoundException e) {

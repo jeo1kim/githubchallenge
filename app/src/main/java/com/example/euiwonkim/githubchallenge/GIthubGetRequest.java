@@ -19,7 +19,7 @@ import java.util.List;
  * Asynctaks to handle Github api GET request for public repos
  *
  * @Param: String: public repo url
- * @Result: JSON
+ * @Result: List: list of pull request objects
  */
 
 public class GIthubGetRequest extends AsyncTask<String, Void, List<PullRequest>> {

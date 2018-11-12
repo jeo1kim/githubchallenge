@@ -24,12 +24,10 @@ import android.widget.TextView;
 public class DiffViewActivity extends AppCompatActivity {
 
     private String diffString;
-
     private String diffRemoved;
     private String diffAdded;
-
-    TextView diffLeftTextView;
-    TextView diffRightTextView;
+    private TextView diffLeftTextView;
+    private TextView diffRightTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,10 +49,8 @@ public class DiffViewActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-
         diffLeftTextView.setText(Html.fromHtml(diffRemoved), TextView.BufferType.SPANNABLE);
         diffRightTextView.setText(Html.fromHtml(diffAdded), TextView.BufferType.SPANNABLE);
-
 
     }
 
@@ -77,7 +73,6 @@ public class DiffViewActivity extends AppCompatActivity {
 
                 // highlight with html
                 String str = "<span style='background-color: #F08080'>"+ line +"</span>";
-
                 removed.append(str);
                 removed.append("<br>");
                 // replace + lines with padding
@@ -87,10 +82,8 @@ public class DiffViewActivity extends AppCompatActivity {
 
                 // do some highlightins
                 String str = "<span style='background-color: #98FB98'>"+ line +"</span>";
-
                 added.append(str);
                 added.append("<br>");
-
                 // replace - lines with padding
                 String pad = paddChars(line);
                 removed.append(pad);
@@ -122,6 +115,7 @@ public class DiffViewActivity extends AppCompatActivity {
         while(padding.length() < s.length() ){
             padding.append(paddingCharacter);
         }
+        // new line at the end
         padding.append("<br>");
         if(s.length() >55) {
             padding.append("<br>");

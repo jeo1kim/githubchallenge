@@ -36,15 +36,14 @@ import java.util.concurrent.ExecutionException;
  */
 public class CardFragment extends Fragment {
 
-    ArrayList<PullRequest> listitems;
-    RecyclerView MyRecyclerView;
-    List<PullRequest> pullRequests;
+    private ArrayList<PullRequest> listitems;
+    private RecyclerView MyRecyclerView;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
+        //TODO: make string formatter given just a repo link.
         String githubRepoURL = "https://api.github.com/repos/torvalds/linux/pulls";
         listitems = getGithubRequest(githubRepoURL);
 
@@ -95,9 +94,7 @@ public class CardFragment extends Fragment {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-
         return pullRequests;
-
     }
 
     /**
@@ -119,6 +116,11 @@ public class CardFragment extends Fragment {
             return holder;
         }
 
+        /**
+         * set the cards views.
+         * @param holder
+         * @param position
+         */
         @Override
         public void onBindViewHolder(final MyViewHolder holder, final int position) {
 
@@ -131,6 +133,7 @@ public class CardFragment extends Fragment {
             holder.pullNumber.setText("#"+list.get(position).getId());
             holder.showDiff.setText("VIEW DIFF");
 
+            // click listener to send to diff activity
             holder.showDiff.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -138,11 +141,11 @@ public class CardFragment extends Fragment {
                     Intent diffViewIntent = new Intent(getActivity(), DiffViewActivity.class);
                     // run asynctask to get fetch the diff
                     list.get(position).fetchDiff();
+                    // call individual diff call and pass it to activity for performance.
                     diffViewIntent.putExtra("diff", list.get(position).getDiff());
                     startActivity(diffViewIntent);
                 }
             });
-
         }
 
        @Override
