@@ -2,7 +2,10 @@ package com.example.euiwonkim.githubchallenge;
 
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
@@ -19,6 +22,7 @@ import android.widget.Toast;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -34,7 +38,7 @@ public class CardFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        
+
         String githubRepoURL = "https://api.github.com/repos/torvalds/linux/pulls";
         listitems = getGithubRequest(githubRepoURL);
 
@@ -112,11 +116,12 @@ public class CardFragment extends Fragment {
 
             holder.titleText.setText(list.get(position).getTitle());
             String imageUrl = list.get(position).getImageUrl();
-            //holder.coverImage.setImageResource( imageUrl);
-            //holder.coverImageView.setTag(list.get(position).getImageResourceId());
-            holder.userName.setText(list.get(position).getUserId());
-            holder.pullNumber.setText(list.get(position).getId());
-            holder.showDiff.setText("View Diff");
+
+            new DownloadImageTask(holder.coverImage).execute(imageUrl);
+
+            holder.userName.setText(" By "+list.get(position).getUserId());
+            holder.pullNumber.setText("#"+list.get(position).getId());
+            holder.showDiff.setText("VIEW DIFF");
 
             holder.showDiff.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -148,11 +153,34 @@ public class CardFragment extends Fragment {
 
         public MyViewHolder(View v) {
             super(v);
-            titleText = (TextView) v.findViewById(R.id.titleTextView);
-            coverImage = (ImageView) v.findViewById(R.id.coverImageView);
+            titleText = v.findViewById(R.id.titleTextView);
+            coverImage = v.findViewById(R.id.coverImageView);
             userName = v.findViewById(R.id.user_name);
             pullNumber = v.findViewById(R.id.pull_number);
             showDiff = v.findViewById(R.id.show_diff);
+        }
+    }
+
+    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        ImageView coverImage;
+        public DownloadImageTask(ImageView coverImage) {
+            this.coverImage = coverImage;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap bmp = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                bmp = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return bmp;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            coverImage.setImageBitmap(result);
         }
     }
 }

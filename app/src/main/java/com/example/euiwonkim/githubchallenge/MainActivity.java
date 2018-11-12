@@ -46,12 +46,9 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent diffViewIntent = new Intent(MainActivity.this, DiffViewActivity.class);
+
                 Intent prActivity = new Intent(MainActivity.this, PullRequestListActivity.class);
 
-                //pullRequests.get(11).fetchDiff();
-                //System.out.println("passing diff"+ pullRequests.get(11).getDiff());
-                //diffViewIntent.putExtra("diff", pullRequests.get(11).getDiff());
 
                 MainActivity.this.startActivity(prActivity);
 

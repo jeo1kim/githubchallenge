@@ -72,7 +72,6 @@ public class DiffGetRequest extends AsyncTask<String, Void, String> {
             // close input and buffered readers
             bReader.close();
             inReader.close();
-            //System.out.println("DIFF REQUEST RAW OUTPUT" + sBuilder.toString());
 
 
             diffResult = sBuilder.toString();
