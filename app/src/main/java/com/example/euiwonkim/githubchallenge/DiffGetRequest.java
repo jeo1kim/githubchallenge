@@ -63,7 +63,7 @@ public class DiffGetRequest extends AsyncTask<String, Void, String> {
 
             StringBuilder sBuilder = new StringBuilder();
 
-            // read until null
+            // read bytes to read newline and tabs
             char[] buff = new char[500];
             for (int charsRead; (charsRead = inReader.read(buff)) != -1; ) {
                 sBuilder.append(buff, 0, charsRead);
@@ -74,7 +74,7 @@ public class DiffGetRequest extends AsyncTask<String, Void, String> {
             inReader.close();
             //System.out.println("DIFF REQUEST RAW OUTPUT" + sBuilder.toString());
 
-            // diff in string
+
             diffResult = sBuilder.toString();
 
         } catch (FileNotFoundException e) {

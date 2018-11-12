@@ -18,17 +18,20 @@ public class PullRequest {
     private String id;
     private String state;
     private String diffUrl;
+    private String imageUrl;
+    private String userId;
     private String title;
 
     private String diff;
-
     // constructor
     protected PullRequest(JSONObject pullRequest) throws JSONException {
 
         //System.out.println(pullRequest.toString());
-        this.id = pullRequest.getString("id");
+        this.id = pullRequest.getString("number");
         this.state = pullRequest.getString("state");
         this.diffUrl = pullRequest.getString("diff_url");
+        this.imageUrl = pullRequest.getJSONObject("user").getString("avatar_url");
+        this.userId =  pullRequest.getJSONObject("user").getString("login");
         this.title = pullRequest.getString("title");
 
     }
@@ -39,6 +42,10 @@ public class PullRequest {
      * uses asyntask from diffGetRequest class.
      */
     protected void fetchDiff(){
+        // we already fetche the api call for this pull request
+        if(this.diff != null){
+            return;
+        }
         DiffGetRequest diffGetRequest = new DiffGetRequest();
         String diff = null;
         try {
@@ -88,6 +95,22 @@ public class PullRequest {
 
     public void setDiffUrl(String diffUrl) {
         this.diffUrl = diffUrl;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getTitle() {

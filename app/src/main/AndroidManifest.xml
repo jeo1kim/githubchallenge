@@ -16,8 +16,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DiffViewActivity"
-            android:screenOrientation="landscape"></activity>
+        <activity android:name=".DiffViewActivity"></activity>
+        <activity android:name=".PullRequestListActivity"></activity>
     </application>
 
 </manifest>

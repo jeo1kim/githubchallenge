@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -17,7 +18,7 @@ import android.widget.TextView;
  * Created by euiwonkim on 11/10/18.
  */
 
-public class DiffViewActivity extends Activity {
+public class DiffViewActivity extends AppCompatActivity {
 
     private String diffString;
 
@@ -113,7 +114,7 @@ public class DiffViewActivity extends Activity {
             padding.append(paddingCharacter);
         }
         padding.append("<br>");
-        if(s.length() > 60) {
+        if(s.length() >55) {
             padding.append("<br>");
         }
         return padding.toString();
