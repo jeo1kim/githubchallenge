@@ -3,6 +3,7 @@ package com.example.euiwonkim.githubchallenge;
 import android.app.Fragment;
 import android.content.Intent;
 import android.preference.PreferenceManager;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -35,27 +36,19 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_pull_list);
 
 
-//        String githubRepoURL = "https://api.github.com/repos/torvalds/linux/pulls";
-//        pullRequests = getGithubRequest(githubRepoURL);
+        FragmentManager fm = getSupportFragmentManager();
+        android.support.v4.app.Fragment fragment = fm.findFragmentById(R.id.fragmentContainer);
 
+        if (fragment == null) {
+            fragment = new CardFragment();
 
-        Button button = findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent prActivity = new Intent(MainActivity.this, PullRequestListActivity.class);
-
-
-                MainActivity.this.startActivity(prActivity);
-
-            }
-        });
-
-
+            fm.beginTransaction()
+                    .add(R.id.fragmentContainer, fragment)
+                    .commit();
+        }
 
     }
 

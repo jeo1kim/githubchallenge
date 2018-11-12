@@ -27,7 +27,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-
+/**
+ * Card View is used to show list of pull requests
+ *
+ * This class executes the api call to the github given a hard coded url.
+ *
+ * default github repo link: "https://api.github.com/repos/torvalds/linux/pulls"
+ */
 public class CardFragment extends Fragment {
 
     ArrayList<PullRequest> listitems;
@@ -94,7 +100,9 @@ public class CardFragment extends Fragment {
 
     }
 
-
+    /**
+     * Adapter
+     */
     public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
         private ArrayList<PullRequest> list;
 
@@ -143,7 +151,7 @@ public class CardFragment extends Fragment {
         }
     }
 
-
+    // viewholder to recycle views.
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView titleText;
         public ImageView coverImage;
@@ -161,6 +169,9 @@ public class CardFragment extends Fragment {
         }
     }
 
+    /**
+     *  AsyncTask to handle user avat image processing on the fragment.
+     */
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
         ImageView coverImage;
         public DownloadImageTask(ImageView coverImage) {

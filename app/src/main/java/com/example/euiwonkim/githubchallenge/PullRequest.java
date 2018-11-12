@@ -23,6 +23,8 @@ public class PullRequest {
     private String title;
 
     private String diff;
+
+
     // constructor
     protected PullRequest(JSONObject pullRequest) throws JSONException {
 

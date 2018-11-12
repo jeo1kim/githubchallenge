@@ -16,6 +16,9 @@ import android.widget.TextView;
 
 /**
  * Created by euiwonkim on 11/10/18.
+ *
+ * This activity shows the diff in 2 side by side textview.
+ * Changes removed are highlighted in red and added in green
  */
 
 public class DiffViewActivity extends AppCompatActivity {
@@ -40,6 +43,8 @@ public class DiffViewActivity extends AppCompatActivity {
         Intent intent = getIntent();
         diffString = intent.getStringExtra("diff");
         makeDiff(diffString);
+
+        setTitle("View Diff");
     }
 
     @Override
@@ -104,7 +109,11 @@ public class DiffViewActivity extends AppCompatActivity {
 
     }
 
-
+    /**
+     * this function is used to pad the chars with spaces in the diff window
+     * @param s
+     * @return newly formated String
+     */
     protected String paddChars(String s) {
 
         String paddingCharacter = "  ";

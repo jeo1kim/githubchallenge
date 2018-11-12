@@ -75,13 +75,18 @@
                 android:padding="@dimen/icon_padding"
                 android:gravity="center" />
 
-            <TextView
+            <Button
                 android:id="@+id/show_diff"
+                style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_width="100dip"
-                android:layout_height="@dimen/icon_height"
+                android:layout_height="55dip"
+                android:layout_marginBottom="2dp"
+                android:layout_marginTop="2dp"
+                android:backgroundTint="@color/colorPrimary"
+                android:elevation="10dp"
+                android:gravity="center"
                 android:padding="@dimen/icon_padding"
-                android:text="Show Diff"
-                android:gravity="center" />
+                android:text="Show Diff" />
         </LinearLayout>
 
     </LinearLayout>
